@@ -23,6 +23,17 @@ public class HomeWork {
 
 
         StringBuilder data = new StringBuilder("{фамилия:Иванов оценка: 5 предмет: Математика} {фамилия: Петрова оценка: 4 предмет: Информатика} {фамилия: Краснов оценка: 5 предмет: Физика}");
+//        String[] shortmethod = data.toString().replaceAll("\\p{P}", "\n")
+//                                            .replaceAll("фамилия", "Студент ")
+//                                            .replaceAll("оценка", "получил ")
+//                                            .replaceAll("предмет", "по предмету ")
+//                                            .split("\n");
+        ArrayList<String> s = new ArrayList<>(Arrays.asList(data.toString().replaceAll("\\p{P}", "\n")
+                                                                            .replaceAll("фамилия", "Студент ")
+                                                                            .replaceAll("оценка", "получил ")
+                                                                            .replaceAll("предмет", "по предмету ")
+                                                                            .split("\n")));
+
         int start = 0;
         int end = start;
         String sep = "фамилия:";
@@ -45,7 +56,22 @@ public class HomeWork {
             if (end != -1)
                 person += data.substring(start, end);
             else person += data.substring(start);
-            
+            person = person.replaceAll("\\p{P}", "");
+            result.add(person);
+        }
+
+        ArrayList<String> seporator = new ArrayList<>(Arrays.asList("фамилия:", "оценка:", "предмет:"));
+        ArrayList<String> newValue = new ArrayList<>(Arrays.asList("Студент", "получил", "по предмету"));
+        while (end != - 1) {
+            String person = "Студент ";
+            for (int j = 0; j < seporator.size() - 1; j++) {
+                start = data.indexOf(seporator.get(j), start);
+                end = data.indexOf(seporator.get(j + 1), start);
+                if (end != -1)
+                    person += data.substring(start + seporator.get(j).length(), end);
+                else person += data.substring(start);
+            }
+            person = person.replaceAll("\\p{P}", "");
             result.add(person);
         }
     }
