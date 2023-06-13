@@ -17,70 +17,53 @@ public class HomeWork {
             System.out.print("m2 = " + j + " ");
         }
     }
-
-    public void secondHomeWork(){
-        //requestsString();
-
-
+    public void secondHomeWork() {
+        System.out.println(requestsString());
         StringBuilder data = new StringBuilder("{фамилия:Иванов оценка: 5 предмет: Математика} {фамилия: Петрова оценка: 4 предмет: Информатика} {фамилия: Краснов оценка: 5 предмет: Физика}");
-//        String[] shortmethod = data.toString().replaceAll("\\p{P}", "\n")
-//                                            .replaceAll("фамилия", "Студент ")
-//                                            .replaceAll("оценка", "получил ")
-//                                            .replaceAll("предмет", "по предмету ")
-//                                            .split("\n");
-        ArrayList<String> s = new ArrayList<>(Arrays.asList(data.toString().replaceAll("\\p{P}", "\n")
-                                                                            .replaceAll("фамилия", "Студент ")
-                                                                            .replaceAll("оценка", "получил ")
-                                                                            .replaceAll("предмет", "по предмету ")
-                                                                            .split("\n")));
+        System.out.println(stringBuilderToStringList(data));
+        System.out.println(stringBuilderToStringListShort(data));
+    }
 
+    public void thirdHoweWork(){
+
+    }
+
+    private ArrayList<String> stringBuilderToStringListShort(StringBuilder data) {
+
+        ArrayList<String> s = new ArrayList<>(Arrays.asList(data.toString()
+                .replaceAll("фамилия:", "Студент ")
+                .replaceAll("оценка:", "получил ")
+                .replaceAll("предмет:", "по предмету ")
+                .replaceAll("\\p{P}", "\n")
+                .split("\n")));
+        s.removeAll(Collections.singleton(""));
+        s.removeAll(Collections.singleton(" "));
+        return s;
+    }
+
+    private ArrayList<String> stringBuilderToStringList(StringBuilder data) {
+        ArrayList<String> result = new ArrayList<String>();
         int start = 0;
         int end = start;
-        String sep = "фамилия:";
-        List<String> result = new ArrayList<String>();
-        while (end != - 1){
-            String person = "Студент ";
-            start = data.indexOf(sep, start);
-            end = data.indexOf("оценка:", start);
-            person += data.substring(start + sep.length(), end);
-            person += "получил ";
-            sep = "оценка:";
-            start = data.indexOf(sep, start);
-            end = data.indexOf("предмет:", start);
-            person += data.substring(start + sep.length(), end);
-            person += "по предмету ";
-            sep = "предмет:";
-            start = data.indexOf(sep, start);
-            end = data.indexOf("фамилия:", start);
-            sep = "фамилия:";
-            if (end != -1)
-                person += data.substring(start, end);
-            else person += data.substring(start);
-            person = person.replaceAll("\\p{P}", "");
-            result.add(person);
-        }
-
         ArrayList<String> seporator = new ArrayList<>(Arrays.asList("фамилия:", "оценка:", "предмет:"));
-        ArrayList<String> newValue = new ArrayList<>(Arrays.asList("Студент", "получил", "по предмету"));
-        while (end != - 1) {
-            String person = "Студент ";
-            for (int j = 0; j < seporator.size() - 1; j++) {
+        ArrayList<String> newValue = new ArrayList<>(Arrays.asList("Студент ", "получил ", "по предмету "));
+        while (end != -1) {
+            String person = "";
+            for (int j = 0, first = 0; j < seporator.size(); j++) {
                 start = data.indexOf(seporator.get(j), start);
-                end = data.indexOf(seporator.get(j + 1), start);
+                if (j + 1 < seporator.size()) end = data.indexOf(seporator.get(j + 1), start);
+                else end = data.indexOf(seporator.get(first), start);
+                person += newValue.get(j);
                 if (end != -1)
                     person += data.substring(start + seporator.get(j).length(), end);
-                else person += data.substring(start);
+                else person += data.substring(start + seporator.get(j).length());
             }
-            person = person.replaceAll("\\p{P}", "");
-            result.add(person);
+            result.add(person.replaceAll("\\p{P}", ""));
         }
+        return result;
     }
-    private void connectionDataBase(StringBuilder request){
-//        Connection db = DriverManager.getConnection("DB");
-//        PreparedStatement ps = db.prepareStatement(request.toString());
-        //"name:""Ivanov", "country":"Russia", "city":"Moscow", "age":"null"
-    }
-    private String requestsString(){
+
+    private String requestsString() {
         String name = "Ivanov";
         String country = "Russia";
         String city = "Moscow";
@@ -91,8 +74,8 @@ public class HomeWork {
         paramsReq.put("country", country);
         paramsReq.put("city", city);
         paramsReq.put("age", age);
-        for (Map.Entry<String, String> p: paramsReq.entrySet()){
-            if (p.getValue() != null){
+        for (Map.Entry<String, String> p : paramsReq.entrySet()) {
+            if (p.getValue() != null) {
                 sb.append(p.getKey() + ": " + p.getValue() + " and ");
             }
         }
@@ -100,13 +83,14 @@ public class HomeWork {
         sb.delete(size - 5, size);
         return sb.toString();
     }
-    private List<String> parsingStrBuilder(StringBuilder value, String sep){
-        List<String> result = new ArrayList<String>();
+
+    private ArrayList<String> parsingStrBuilder(StringBuilder value, String sep) {
+        ArrayList<String> result = new ArrayList<String>();
         int start = 0;
         int extra = 0;
         int end;
-        while ((end = value.indexOf(sep,start + extra)) != -1){
-            if(start != end){
+        while ((end = value.indexOf(sep, start + extra)) != -1) {
+            if (start != end) {
                 result.add(value.substring(start, end));
             }
             start = end + sep.length();
@@ -114,8 +98,9 @@ public class HomeWork {
         }
         if (start != value.length())
             result.add(value.substring(start));
-        return  result;
+        return result;
     }
+
     private int generateIntInRange(int min, int max) {
         return new Random().nextInt(min, max);
     }
@@ -143,4 +128,6 @@ public class HomeWork {
         int[] value = result.stream().mapToInt(Integer::intValue).toArray();
         return value;
     }
+
+    
 }
