@@ -25,7 +25,7 @@ public class HomeWork {
     }
 
     public void thirdHoweWork(){
-
+        third();
     }
 
     private ArrayList<String> stringBuilderToStringListShort(StringBuilder data) {
@@ -129,5 +129,28 @@ public class HomeWork {
         return value;
     }
 
-    
+    private void third(){
+        ArrayList<Integer> values = new ArrayList<>();
+        for (int i = 0; i < 10; i++)
+            values.add(generateIntInRange(1, 1000));
+
+        Iterator<Integer> iterator = values.listIterator();
+        while (iterator.hasNext())
+            if(iterator.next() % 2 == 0)
+                iterator.remove();
+        //use sorting
+        values.sort(Comparator.naturalOrder());
+        System.out.println(values.get(0));
+        System.out.println(values.get(values.size() - 1));
+        //without sorting
+        System.out.println(Collections.min(values));
+        System.out.println(Collections.max(values));
+        int sum = 0;
+        for (int elems: values) {
+            sum += elems;
+        }
+        System.out.println(sum / values.size());
+        System.out.println(values);
+
+    }
 }
