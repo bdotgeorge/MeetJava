@@ -3,6 +3,7 @@ public class Main {
         HomeWork home = new HomeWork();
         //home.first();
         //home.secondHomeWork();
-        home.thirdHoweWork();
+        //home.thirdHoweWork();
+        home.classWork();
     }
 }
