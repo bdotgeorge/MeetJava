@@ -231,6 +231,7 @@ public class HomeWork extends Object {
         }
         return id;
     }
+
     // String a = iScanner.nextLine();
     // if (a.equals("q")) {
     //     System.exit(0);
@@ -248,6 +249,60 @@ public class HomeWork extends Object {
     // Иванов иван иванович 45 М
     // Сидорова анна яковлевна 56 Ж
     // Комарова яна федоровна 20 Ж
+    public void phoneBook() {
+        enum Names {
+            John,
+            Dmitrii,
+            Evgenii,
+            Michale,
+            Esteban,
+            Sharle,
+            Fernando,
+            Max,
+            Stan,
+            Niko,
+            Elen,
+            lisa,
+            Monica,
+            Rachel,
+            Anna,
+            Natali,
+            Kira,
+            Nadiya,
+            Maria,
+            Sara
+        }
+        Map<String, ArrayList<Integer>> book = new HashMap<String, ArrayList<Integer>>();
+        for (Names name : Names.values()) {
+            ArrayList<Integer> number = new ArrayList<>();
+            number.add(17174 * new Random().nextInt(1, 10));
+            book.put(name.toString(), number);
+        }
+        book.forEach((k, v) -> {
+            int i = new Random().nextInt(0, 20);
+            if (i % 3 == 0) {
+                v.add(447 * new Random().nextInt(11, 87));
+                if (k.contains(Names.values()[i].toString())) {
+                    v.add(3153 * new Random().nextInt(4, 34));
+                }
+            }
+            if (i % 3 == 0 || i % 2 == 0) {
+                v.add(15 * new Random().nextInt(7, 45));
+            }
+        });
+        ArrayList<Map.Entry<String, ArrayList<Integer>>> sortMap = new ArrayList(book.entrySet());
+        Collections.sort(sortMap, new Comparator<Map.Entry<String, ArrayList<Integer>>>() {
+            @Override
+            public int compare(Map.Entry<String, ArrayList<Integer>> o1, Map.Entry<String, ArrayList<Integer>> o2) {
+                return o2.getValue().size() - o1.getValue().size();
+            }
+        });
+        for (Map.Entry<String, ArrayList<Integer>> res : sortMap) {
+            System.out.println(res);
+        }
+
+
+    }
 }
 
 

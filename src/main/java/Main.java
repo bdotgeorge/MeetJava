@@ -4,6 +4,7 @@ public class Main {
         //home.first();
         //home.secondHomeWork();
         //home.thirdHoweWork();
-        home.classWork();
+//        home.classWork();
+        home.phoneBook();
     }
 }
