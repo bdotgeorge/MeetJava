@@ -1,7 +1,7 @@
 import java.util.*;
 import java.sql.*;
 
-public class HomeWork extends Object {
+public class HomeWork{
     public void first() {
         int i = generateIntInRange(0, 2000);
         int n = highBitNumber(i);
@@ -161,8 +161,6 @@ public class HomeWork extends Object {
         System.out.println(values);
 
     }
-
-
     public void classWork() {
         Scanner iScanner = new Scanner(System.in);
         ArrayList<String[]> humans = new ArrayList<String[]>();
@@ -300,8 +298,6 @@ public class HomeWork extends Object {
         for (Map.Entry<String, ArrayList<Integer>> res : sortMap) {
             System.out.println(res);
         }
-
-
     }
 }
 
